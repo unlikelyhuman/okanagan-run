@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Okanagan Run — Canada '26 · Jul 3–17</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#16201c; --ink-2:#34433c; --cream:#f8f4e9; --cream-2:#efe8d6;
+    --pine:#1d4d39; --pine-d:#123227; --teal:#1f9c8b; --lake:#2bb3a3;
+    --sun:#ef7c3c; --sun-2:#f4a23e; --gold:#e6b23e; --berry:#bf4a5e; --sky:#9ad7d0;
+    --line:rgba(22,32,28,.12); --shadow:0 18px 40px rgba(18,30,25,.14);
+    --tag-adv:#ef7c3c; --tag-party:#bf4a5e; --tag-lake:#2bb3a3; --tag-travel:#6b7f9e; --tag-chill:#9a8f5e;
+    --tag-anime:#7a6cab; --tag-cars:#3a4a5a; --tag-sport:#2e7d52;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:"Hanken Grotesk",system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.55;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.disp{font-family:"Bricolage Grotesque",sans-serif;letter-spacing:-.02em;line-height:1.0}
+  a{color:inherit}
+  .container{max-width:1080px;margin:0 auto;padding:0 22px}
+
+  /* ---------------- HERO ---------------- */
+  .hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#0c2b3a 0%,#13414a 38%,#1d4d39 100%);color:var(--cream)}
+  .hero svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .sun{position:absolute;top:11%;left:50%;transform:translateX(-50%);width:160px;height:160px;border-radius:50%;
+    background:radial-gradient(circle,#ffe7a8,#f4a23e 60%,#ef7c3c);box-shadow:0 0 90px 30px rgba(244,162,62,.45);z-index:0}
+  .hero-inner{position:relative;z-index:3;padding:70px 22px 120px;text-align:center}
+  .eyebrow{font-weight:700;letter-spacing:.34em;text-transform:uppercase;font-size:12px;color:var(--sky);margin-bottom:18px}
+  .hero h1{font-size:clamp(44px,9vw,104px);font-weight:800;text-shadow:0 4px 30px rgba(0,0,0,.3)}
+  .hero h1 .o{color:var(--sun-2)}
+  .hero .dates{margin-top:18px;font-size:clamp(16px,2.4vw,22px);font-weight:600;color:#dff3ef}
+  .hero .sub{margin:14px auto 0;max-width:48ch;color:#cfe7e2;font-size:16px}
+  .crewtag{display:inline-flex;gap:9px;align-items:center;margin-top:26px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
+    padding:9px 18px;border-radius:40px;font-weight:600;font-size:14px;backdrop-filter:blur(6px)}
+  .hero-stats{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+  .hstat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:14px 20px;min-width:120px}
+  .hstat b{display:block;font-family:"Bricolage Grotesque";font-size:30px;font-weight:800;color:var(--sun-2)}
+  .hstat span{font-size:12.5px;letter-spacing:.06em;color:#cfe7e2}
+
+  /* ---------------- ROUTE STRIP ---------------- */
+  .route{background:var(--pine-d);color:var(--cream);padding:22px 0}
+  .route-scroll{display:flex;align-items:center;gap:8px;overflow-x:auto;padding-bottom:6px}
+  .route-scroll::-webkit-scrollbar{height:6px}
+  .route-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25);border-radius:4px}
+  .stop{flex:0 0 auto;text-align:center}
+  .stop .dot{font-size:22px}
+  .stop .nm{font-family:"Bricolage Grotesque";font-weight:700;font-size:16px;margin-top:2px}
+  .stop .nights{font-size:12px;color:var(--sky)}
+  .leg{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;color:var(--sun-2);font-size:12px;font-weight:600;padding:0 4px;min-width:64px}
+  .leg .ln{width:100%;height:2px;background:repeating-linear-gradient(90deg,var(--sun-2) 0 6px,transparent 6px 11px);margin-bottom:4px}
+
+  /* ---------------- NAV ---------------- */
+  nav{position:sticky;top:0;z-index:40;background:rgba(248,244,233,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;gap:6px;align-items:center;padding:10px 22px;max-width:1080px;margin:0 auto;overflow-x:auto}
+  .nav-inner .brand{font-family:"Bricolage Grotesque";font-weight:800;margin-right:auto;font-size:16px;white-space:nowrap}
+  .nav-inner a{text-decoration:none;font-weight:600;font-size:14px;color:var(--ink-2);padding:8px 14px;border-radius:9px;white-space:nowrap;transition:.15s}
+  .nav-inner a:hover{background:var(--cream-2)}
+  .nav-inner a.on{background:var(--pine);color:var(--cream)}
+
+  section{padding:64px 0}
+  .sec-head{margin-bottom:30px}
+  .sec-head .kick{font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:12.5px;color:var(--sun)}
+  .sec-head h2{font-size:clamp(30px,5vw,46px);font-weight:800;margin-top:8px}
+  .sec-head p{margin-top:10px;color:var(--ink-2);max-width:62ch;font-size:16.5px}
+
+  /* ---------------- FILTER CHIPS ---------------- */
+  .filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:30px;position:sticky;top:54px;z-index:20;padding:6px 0}
+  .chip{cursor:pointer;border:1.5px solid var(--line);background:#fff;border-radius:30px;padding:8px 16px;font-weight:600;font-size:13.5px;
+    display:flex;align-items:center;gap:7px;transition:.15s;color:var(--ink-2)}
+  .chip .sw{width:11px;height:11px;border-radius:50%}
+  .chip:hover{border-color:var(--ink-2)}
+  .chip.off{opacity:.4}
+  .chip.allchip{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+  .chip.allchip.off{opacity:.4}
+
+  /* ---------------- ACT + DAY CARDS ---------------- */
+  .act-banner{display:flex;align-items:baseline;gap:14px;margin:8px 0 26px;padding-bottom:14px;border-bottom:3px solid var(--ink)}
+  .act-banner .num{font-family:"Bricolage Grotesque";font-weight:800;font-size:54px;color:var(--cream-2);-webkit-text-stroke:2px var(--ink);line-height:.8}
+  .act-banner h3{font-size:clamp(22px,4vw,32px);font-weight:800}
+  .act-banner .meta{margin-left:auto;font-weight:600;color:var(--ink-2);font-size:14px;text-align:right;white-space:nowrap}
+
+  .day{background:#fff;border:1px solid var(--line);border-radius:18px;margin-bottom:18px;overflow:hidden;box-shadow:var(--shadow);
+    transition:opacity .25s, transform .25s;border-left:6px solid var(--pine)}
+  .day.hide{display:none}
+  .day-top{display:flex;gap:18px;align-items:flex-start;padding:22px 24px;flex-wrap:wrap}
+  .daynum{flex:0 0 auto;text-align:center;background:var(--pine);color:var(--cream);border-radius:13px;padding:10px 14px;min-width:74px}
+  .daynum .d{font-family:"Bricolage Grotesque";font-weight:800;font-size:24px;line-height:1}
+  .daynum .wd{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--sky);margin-top:3px}
+  .daynum .mo{font-size:12px;color:#cfe7e2}
+  .day-headtext{flex:1 1 320px;min-width:240px}
+  .day-loc{font-weight:700;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);display:flex;align-items:center;gap:6px}
+  .day-headtext h4{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(20px,3vw,27px);margin:5px 0 8px}
+  .day-headtext .blurb{color:var(--ink-2);font-size:15.5px}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+  .tag{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:20px;color:#fff}
+
+  .moves{padding:0 24px 8px 24px}
+  .move{display:flex;gap:13px;padding:13px 0;border-top:1px dashed var(--line)}
+  .move .mi{flex:0 0 auto;font-size:22px;width:30px;text-align:center}
+  .move .mt b{font-weight:700}
+  .move .mt{font-size:15.5px}
+  .move .mt .note{color:var(--ink-2);font-size:14px}
+  .day-foot{display:flex;gap:16px;flex-wrap:wrap;align-items:center;padding:14px 24px 20px;background:var(--cream);border-top:1px solid var(--line)}
+  .tip{flex:1 1 320px;font-size:14px;color:var(--ink-2)}
+  .tip b{color:var(--sun)}
+  .blinks{display:flex;gap:8px;flex-wrap:wrap}
+  .blink{text-decoration:none;font-weight:700;font-size:13px;background:#fff;border:1.5px solid var(--ink);border-radius:9px;padding:7px 13px;transition:.15s}
+  .blink:hover{background:var(--ink);color:var(--cream)}
+  .blink::after{content:" ↗";font-weight:400}
+
+  /* ---------------- BOOK AHEAD ---------------- */
+  .book{background:var(--pine-d);color:var(--cream)}
+  .book .sec-head h2,.book .sec-head .kick{color:var(--cream)}
+  .book .sec-head .kick{color:var(--sun-2)}
+  .book .sec-head p{color:#cfe7e2}
+  .progress-wrap{background:rgba(255,255,255,.1);border-radius:30px;height:16px;overflow:hidden;margin:6px 0 4px;border:1px solid rgba(255,255,255,.18)}
+  .progress-wrap>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sun),var(--gold));transition:width .4s}
+  .progress-label{font-weight:700;font-size:14px;color:var(--sun-2);margin-bottom:22px}
+  .checklist{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:720px){.checklist{grid-template-columns:1fr}}
+  .check{display:flex;gap:13px;align-items:flex-start;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+    border-radius:13px;padding:15px 17px;cursor:pointer;transition:.15s}
+  .check:hover{background:rgba(255,255,255,.11)}
+  .check .box{flex:0 0 auto;width:26px;height:26px;border-radius:7px;border:2px solid var(--sun-2);display:flex;align-items:center;justify-content:center;font-weight:800;transition:.15s;color:transparent}
+  .check.done .box{background:var(--sun-2);color:var(--pine-d)}
+  .check .ct b{display:block;font-family:"Bricolage Grotesque";font-weight:700;font-size:15.5px}
+  .check.done .ct b{text-decoration:line-through;opacity:.7}
+  .check .ct span{font-size:13.5px;color:#cfe7e2}
+  .urgent{color:var(--sun-2);font-weight:700;font-size:12px;letter-spacing:.05em}
+
+  /* ---------------- TIPS ---------------- */
+  .tipgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:820px){.tipgrid{grid-template-columns:1fr}}
+  .tcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+  .tcard .ic{font-size:30px}
+  .tcard h4{font-family:"Bricolage Grotesque";font-weight:800;font-size:18px;margin:10px 0 6px}
+  .tcard p{font-size:14.5px;color:var(--ink-2)}
+  .tcard p b{color:var(--ink)}
+
+  footer{background:var(--ink);color:#c9d3ce;padding:46px 0 60px;font-size:13.5px}
+  footer h4{font-family:"Bricolage Grotesque";color:var(--cream);font-weight:800;font-size:18px;margin-bottom:10px}
+  footer a{color:var(--sky);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  .srcs{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:10px}
+  .disclaim{margin-top:26px;color:#8a978f;font-size:12.5px;max-width:70ch}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="sun"></div>
+  <svg viewBox="0 0 1200 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f6f5a"/><stop offset="1" stop-color="#1d4d39"/></linearGradient>
+      <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#214f54"/><stop offset="1" stop-color="#14383d"/></linearGradient>
+      <linearGradient id="m3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16323f"/><stop offset="1" stop-color="#0c2530"/></linearGradient>
+    </defs>
+    <path fill="url(#m3)" d="M0 230 L160 120 L300 220 L430 110 L560 210 L700 90 L840 210 L980 120 L1130 220 L1200 170 L1200 420 L0 420 Z"/>
+    <path fill="url(#m2)" d="M0 300 L130 200 L260 300 L400 190 L540 300 L690 180 L820 300 L960 200 L1110 300 L1200 250 L1200 420 L0 420 Z" opacity=".96"/>
+    <path fill="url(#m1)" d="M0 360 L150 280 L300 360 L470 270 L620 365 L780 280 L920 365 L1080 290 L1200 360 L1200 420 L0 420 Z"/>
+    <!-- snow caps -->
+    <path fill="#eaf6f2" opacity=".85" d="M700 90 l24 38 l-13 -6 l-12 12 l-10 -10 l-9 6 Z"/>
+    <path fill="#eaf6f2" opacity=".75" d="M430 110 l22 34 l-12 -5 l-10 10 l-9 -8 Z"/>
+  </svg>
+  <div class="hero-inner">
+    <div class="eyebrow">The Lads · Kelowna &amp; the Okanagan</div>
+    <h1>The <span class="o">Okanagan</span><br>Run</h1>
+    <div class="dates">3 → 17 July 2026 · 14 nights · based in Kelowna, BC 🇨🇦</div>
+    <p class="sub">Lake days, supercars, anime &amp; arcade nights, a live football game in town, and one short mountain escape to Banff. Mostly Kelowna, max chill.</p>
+    <div class="crewtag">🍺 4 UK lads (parents tagging along, doing their own thing)</div>
+    <div class="hero-stats">
+      <div class="hstat"><b>14</b><span>nights away</span></div>
+      <div class="hstat"><b>11</b><span>nights in Kelowna</span></div>
+      <div class="hstat"><b>1</b><span>road trip (Banff)</span></div>
+      <div class="hstat"><b>🏈</b><span>BC Lions, Jul 4</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== ROUTE STRIP ===== -->
+<div class="route">
+  <div class="container">
+    <div class="route-scroll">
+      <div class="stop"><div class="dot">🏝️</div><div class="nm">Kelowna</div><div class="nights">5 nights</div></div>
+      <div class="leg"><div class="ln"></div>~6 hrs</div>
+      <div class="stop"><div class="dot">🏔️</div><div class="nm">Banff</div><div class="nights">2 nights</div></div>
+      <div class="leg"><div class="ln"></div>~6 hrs</div>
+      <div class="stop"><div class="dot">🏝️</div><div class="nm">Kelowna</div><div class="nights">7 nights</div></div>
+      <div class="leg"><div class="ln"></div>day trips</div>
+      <div class="stop"><div class="dot">🛟</div><div class="nm">Penticton</div><div class="nights">~1 hr</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="nav-inner">
+    <span class="brand">🍁 Canada '26</span>
+    <a href="#act1" class="navlink">Act I · Kelowna</a>
+    <a href="#act2" class="navlink">Act II · The Rockies Run</a>
+    <a href="#act3" class="navlink">Act III · Send-off</a>
+    <a href="#book" class="navlink">Book Ahead</a>
+    <a href="#tips" class="navlink">Survival Kit</a>
+  </div>
+</nav>
+
+<!-- ===== ITINERARY ===== -->
+<section id="itinerary">
+  <div class="container">
+    <div class="sec-head">
+      <div class="kick">The Plan</div>
+      <h2>Day by day</h2>
+      <p>Three acts: settle into Kelowna lake life, take one road trip to the Rockies, then wind down across the Okanagan. Filter the trip by vibe — tap a chip to dim the rest.</p>
+    </div>
+
+    <div class="filters" id="filters">
+      <div class="chip allchip" data-tag="all">All days</div>
+      <div class="chip" data-tag="adventure"><span class="sw" style="background:var(--tag-adv)"></span>Adventure</div>
+      <div class="chip" data-tag="lake"><span class="sw" style="background:var(--tag-lake)"></span>Lake / water</div>
+      <div class="chip" data-tag="cars"><span class="sw" style="background:var(--tag-cars)"></span>Cars</div>
+      <div class="chip" data-tag="anime"><span class="sw" style="background:var(--tag-anime)"></span>Anime / games</div>
+      <div class="chip" data-tag="party"><span class="sw" style="background:var(--tag-party)"></span>Big nights</div>
+      <div class="chip" data-tag="sport"><span class="sw" style="background:var(--tag-sport)"></span>Live sport</div>
+      <div class="chip" data-tag="chill"><span class="sw" style="background:var(--tag-chill)"></span>Recovery</div>
+    </div>
+
+    <div id="acts"></div>
+  </div>
+</section>
+
+<!-- ===== BOOK AHEAD ===== -->
+<section id="book" class="book">
+  <div class="container">
+    <div class="sec-head">
+      <div class="kick">Don't get caught out</div>
+      <h2>Book before you fly</h2>
+      <p>July is peak season — lake-town accommodation, the BC Lions game and the supercars all sell out. Lock these in now — tap to tick them off (saved on this device).</p>
+    </div>
+    <div class="progress-wrap"><i id="progBar"></i></div>
+    <div class="progress-label" id="progLabel">0 of 0 sorted</div>
+    <div class="checklist" id="checklist"></div>
+  </div>
+</section>
+
+<!-- ===== SURVIVAL KIT ===== -->
+<section id="tips">
+  <div class="container">
+    <div class="sec-head">
+      <div class="kick">Local knowledge</div>
+      <h2>The survival kit</h2>
+      <p>Bits the tourist sites won't tell you, learned the hard way so you don't have to.</p>
+    </div>
+    <div class="tipgrid">
+      <div class="tcard"><div class="ic">🚗</div><h4>Two sets of wheels</h4><p>Get a <b>normal hire car from YLW</b> for the Banff run and day trips — your <b>UK licence is valid</b> for visitors (grab an IDP to be safe), and <b>drive on the right.</b> Then book the <b>exotic-car day separately</b> (Jul 6) — those are reserved through the supercar operators, not your rental desk.</p></div>
+      <div class="tcard"><div class="ic">🏒</div><h4>No hockey in July, sorry</h4><p>Straight up: the <b>NHL is off-season</b> (it ends mid-June) and Kelowna's <b>rinks close for summer</b> — there's no live ice hockey to watch on your dates, anywhere nearby. Your live-sport fix is the <b>BC Lions on Jul 4</b>. For a hockey hit, catch a game replay over wings at a downtown <b>sports bar</b>.</p></div>
+      <div class="tcard"><div class="ic">🍙</div><h4>The anime cluster</h4><p>Better than you'd expect for a lake town: <b>Izakaya</b> (anime bar), <b>Round1</b> (Japanese arcade), <b>Nani</b> (anime store) and <b>Original 151</b> (Pokémon) sit together around <b>Orchard Park / Fairfield Commons</b> — knock them out in one afternoon loop.</p></div>
+      <div class="tcard"><div class="ic">💵</div><h4>Money &amp; tax maths</h4><p>Prices on shelves are <b>before tax</b> (~12% in BC, 5% in AB) and <b>tip 15–20%</b> on top in bars/restaurants. Tap-to-pay is everywhere. Budget roughly <b>CA$150–250/day pp</b> excluding flights &amp; the big-ticket activities.</p></div>
+      <div class="tcard"><div class="ic">🍺</div><h4>Drinking age trap</h4><p><b>BC is 19, Alberta is 18</b> — carry your passport, they card hard. Okanagan craft beer is unreal; pace yourself on the wine-tour bus or day two will hurt.</p></div>
+      <div class="tcard"><div class="ic">☀️</div><h4>Hotter &amp; drier than you think</h4><p>The Okanagan is semi-desert — <b>30–35°C</b> in July, intense sun, cold lake. SPF, hats, water. The Rockies are 10°C cooler and can turn fast: <b>pack one warm layer + a rain shell.</b> Wildfire smoke is possible — check air quality.</p></div>
+      <div class="tcard"><div class="ic">🏔️</div><h4>Banff needs a pass</h4><p>You need a <b>Parks Canada day pass</b> per vehicle to stop in the national parks (buy online). Book Banff's car-free attractions ahead and start hikes early — car parks fill by 9am.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <h4>The intel behind the plan</h4>
+    <p>Operators, dates and distances pulled from these sources — book direct via the links on each day.</p>
+    <div class="srcs">
+      <a href="https://www.bclions.com/" target="_blank" rel="noopener">BC Lions (Jul 4, Kelowna)</a>
+      <a href="https://www.tripadvisor.ca/Attraction_Review-g154933-d10344687" target="_blank" rel="noopener">Kelowna Exotic Car Tours</a>
+      <a href="https://izakaya.moe/" target="_blank" rel="noopener">Izakaya anime bar</a>
+      <a href="https://downtownkelowna.com/business-listings/twice-the-dice-board-game-cafe/" target="_blank" rel="noopener">Twice the Dice café</a>
+      <a href="https://www.banffjaspercollection.com/attractions/banff-gondola/" target="_blank" rel="noopener">Banff Gondola</a>
+      <a href="https://banfftours.com/things-to-do/via-ferrata/" target="_blank" rel="noopener">Norquay Via Ferrata</a>
+      <a href="https://apexrafting.com/" target="_blank" rel="noopener">Apex Rafting (Revelstoke)</a>
+      <a href="https://www.coyotecruises.com/" target="_blank" rel="noopener">Coyote Cruises (float)</a>
+      <a href="https://www.bigwhite.com/summer/mountain-biking" target="_blank" rel="noopener">Big White Bike Park</a>
+      <a href="https://www.kelownafalcons.com/game-schedule/" target="_blank" rel="noopener">Kelowna Falcons baseball</a>
+      <a href="https://www.seadoorentalskelowna.com/" target="_blank" rel="noopener">Sea-Doo rentals</a>
+      <a href="https://www.tourismkelowna.com/plan/how-to-get-here/car/" target="_blank" rel="noopener">Drive times</a>
+    </div>
+    <p class="disclaim">Itinerary built June 2026. Prices, dates and operating hours change — confirm everything when you book, especially the BC Lions fixture date/kickoff, exotic-car availability, rafting water levels and national-park passes. Drink responsibly and keep someone sober on driving days.</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+"use strict";
+const $ = s => document.querySelector(s);
+
+/* ---------------- itinerary data ---------------- */
+const TAGS = {
+  adventure:{label:"Adventure",c:"var(--tag-adv)"},
+  lake:{label:"Water",c:"var(--tag-lake)"},
+  cars:{label:"Cars",c:"var(--tag-cars)"},
+  anime:{label:"Anime / games",c:"var(--tag-anime)"},
+  party:{label:"Big night",c:"var(--tag-party)"},
+  sport:{label:"Live sport",c:"var(--tag-sport)"},
+  travel:{label:"Road trip",c:"var(--tag-travel)"},
+  chill:{label:"Recovery",c:"var(--tag-chill)"},
+};
+
+const ACTS = [
+  { id:"act1", num:"I", title:"Settling into Kelowna", meta:"Jul 3–7 · 5 nights",
+    days:[
+    { d:3, wd:"Fri", mo:"Jul", loc:"Kelowna", emoji:"🛬", title:"Land, settle, easy first night",
+      tags:["chill","anime"],
+      blurb:"Fly into Kelowna (YLW), grab the hire car, drop bags at the lake-side base. Ease in — don't go full send on night one.",
+      moves:[
+        {i:"🚗",t:"<b>Collect the rental</b> at YLW and check in. Stock the fridge with beers from a cold-beer-and-wine store."},
+        {i:"🎳",t:"<b>BNA Brewing</b> for dinner — a restored 1910 warehouse with <b>bowling lanes, arcade games and a country speakeasy.</b> Perfect low-key opener that hits the games itch."},
+        {i:"🌅",t:"Sunset stroll along the <b>Kelowna waterfront &amp; Bernard Ave</b> to get the lay of the land."},
+      ],
+      tip:"Jet-lagged from the UK (8hr behind) — one big night now ruins the BC Lions game tomorrow. Save it.",
+      links:[{t:"BNA Brewing",u:"https://bnabrewing.com/"}] },
+
+    { d:4, wd:"Sat", mo:"Jul", loc:"Kelowna", emoji:"🏈", title:"Lake by day, BC Lions by night",
+      tags:["lake","sport","party"],
+      blurb:"The anchor of the trip: jet-skis in the afternoon, then live North-American football in your own backyard — the BC Lions are playing IN Kelowna.",
+      moves:[
+        {i:"🛥️",t:"Daytime: <b>Sea-Doo / jet-ski rentals</b> from the Downtown Marina — a group convoy across Okanagan Lake, swim stops and a blast around the bays."},
+        {i:"🏈",t:"<b>BC Lions vs Edmonton Elks — Apple Bowl, Kelowna.</b> The CFL (Canadian gridiron) is your live-football fix; BC Place is tied up by the FIFA World Cup, so the Lions are playing a rare home game right here. Get tickets early."},
+        {i:"🍻",t:"<b>Big Saturday night out</b> on Bernard Ave — Red Bird Brewing's huge patio, then Micro Bar &amp; Bites and Salt &amp; Brick for the late one."},
+      ],
+      tip:"Heads up: this is a <b>fixed date</b> — the game won't move. Build the day around the kickoff time and book seats together before you fly.",
+      links:[{t:"BC Lions tickets",u:"https://www.bclions.com/"},{t:"Sea-Doo rentals",u:"https://www.seadoorentalskelowna.com/"},{t:"Red Bird Brewing",u:"https://www.redbirdbrewing.com/"}] },
+
+    { d:5, wd:"Sun", mo:"Jul", loc:"Kelowna", emoji:"🍙", title:"Anime, arcades & board games",
+      tags:["anime","chill"],
+      blurb:"Tender heads, so today is the geek-out recovery day — Kelowna has a proper little Japan/anime cluster around Orchard Park.",
+      moves:[
+        {i:"🍶",t:"Lunch &amp; drinks at <b>Izakaya</b> — an anime-themed bar &amp; restaurant with themed cocktails and Japanese plates."},
+        {i:"🕹️",t:"Smash the Japanese arcade at <b>Round1</b>, then raid <b>Nani</b> (anime store) and <b>Original 151</b> (Pokémon &amp; collectibles) for souvenirs."},
+        {i:"🎲",t:"Wind down at <b>Twice the Dice</b> board-game café — 1,000+ games, coffee, beer and a sandwich bar. Pure chill."},
+      ],
+      tip:"The anime/arcade spots cluster around <b>Orchard Park / Fairfield Commons</b> — do them as one easy afternoon loop.",
+      links:[{t:"Izakaya",u:"https://izakaya.moe/"},{t:"Twice the Dice",u:"https://downtownkelowna.com/business-listings/twice-the-dice-board-game-cafe/"}] },
+
+    { d:6, wd:"Mon", mo:"Jul", loc:"Okanagan back roads", emoji:"🏎️", title:"Supercar canyon drive",
+      tags:["cars","adventure"],
+      blurb:"The motoring day. Get behind the wheel of a proper exotic and string together the best driving roads in the valley.",
+      moves:[
+        {i:"🏎️",t:"<b>Kelowna Exotic Car Tours</b> — drive a lineup that can include a <b>Porsche 911S, Ferrari F430, Aston Martin Vantage and Audi R8</b> on a guided route. Swap cars as you go."},
+        {i:"🛣️",t:"Best roads: the <b>Naramata Bench</b>, the climbs around <b>Bear Creek</b> and the lake-hugging stretches south — sweeping corners and viewpoint pull-ins for photos."},
+        {i:"📸",t:"Stop for a lakeside lunch mid-drive; line the cars up for the obligatory group shot."},
+      ],
+      tip:"Prefer your own wheels? <b>West K Exotics</b> and <b>Kelowna Dream Car</b> do day rentals (incl. an Audi R8) with valet drop-off. Mind the insurance excess.",
+      links:[{t:"Kelowna Exotic Car Tours",u:"https://www.tripadvisor.ca/Attraction_Review-g154933-d10344687"},{t:"West K Exotics",u:"https://westkexotics.ca/"},{t:"Kelowna Dream Car",u:"https://kelownadreamcar.com/"}] },
+
+    { d:7, wd:"Tue", mo:"Jul", loc:"Okanagan Lake", emoji:"🚤", title:"Party-boat & cliff jumps",
+      tags:["lake","adventure","party"],
+      blurb:"Own the lake for a day before tomorrow's mountain run — your own boat, swimming, wakesurf and the famous cliff jumps.",
+      moves:[
+        {i:"🚤",t:"<b>Rent a pontoon / party boat</b> for the day (no licence needed for most rentals) — anchor up, music on, beers on the water."},
+        {i:"🪂",t:"Cruise to <b>Squally Point cliff jumping</b> (near Rattlesnake Island) — only reachable by water, exactly why it's class."},
+        {i:"🏄",t:"Add a <b>wakesurf session</b> (Off the Grid / Momentum) for anyone who fancies learning behind the boat."},
+      ],
+      tip:"Designate a sober skipper (or pay for a captained charter). Pack out everything in the morning — you're driving to Banff at sunrise.",
+      links:[{t:"Downtown Marina rentals",u:"https://www.kelownadowntownmarina.com/"}] },
+  ]},
+
+  { id:"act2", num:"II", title:"The Rockies escape", meta:"Jul 8–10 · 2 nights · Banff",
+    days:[
+    { d:8, wd:"Wed", mo:"Jul", loc:"Kelowna → Banff", emoji:"🏔️", title:"Run east to the Rockies",
+      tags:["travel","chill"],
+      blurb:"The one road trip. A genuinely world-class drive over the mountains into Banff National Park — break it up and make it part of the fun.",
+      moves:[
+        {i:"🚙",t:"<b>Kelowna → Banff</b> (~6hrs) via the Trans-Canada through Sicamous, Revelstoke and Golden. Share the driving."},
+        {i:"🌊",t:"Optional mid-route blast: a <b>half-day white-water raft in Revelstoke</b> (Apex Rafting) — peak flow in mid-July — or just stop for lunch &amp; a leg-stretch."},
+        {i:"♨️",t:"Check in (Banff or cheaper <b>Canmore</b>), dinner on Banff Ave, then soak it off at the <b>Banff Upper Hot Springs</b>."},
+      ],
+      tip:"Buy a <b>Parks Canada day pass</b> per vehicle before you enter the park. Leave early — it's a long but stunning day on the road.",
+      links:[{t:"Apex Rafting",u:"https://apexrafting.com/"},{t:"Parks Canada / Banff",u:"https://www.banfflakelouise.com/"}] },
+
+    { d:9, wd:"Thu", mo:"Jul", loc:"Banff", emoji:"🧗", title:"Gondola, cliffs & big views",
+      tags:["adventure"],
+      blurb:"Your full Rockies day — go as full-send or as scenic as the group fancies.",
+      moves:[
+        {i:"🚡",t:"<b>Banff Gondola</b> up Sulphur Mountain (2,281m) — eight minutes up to a ridge walk and 360° Rockies views."},
+        {i:"🧗",t:"Adrenaline option: <b>Mount Norquay Via Ferrata</b> — clip into fixed cables, ladders and iron rungs up a real cliff face, routes from beginner to brutal."},
+        {i:"🏞️",t:"Scenic option: the postcard lakes — <b>Lake Louise &amp; Moraine</b> — then a brewpub (Park Distillery) back in town."},
+      ],
+      tip:"Car parks at Lake Louise/Moraine fill by ~9am in July — go early or use the park shuttle. Pack a warm layer; the Rockies are ~10°C cooler than the Okanagan.",
+      links:[{t:"Banff Gondola",u:"https://www.banffjaspercollection.com/attractions/banff-gondola/"},{t:"Norquay Via Ferrata",u:"https://banfftours.com/things-to-do/via-ferrata/"}] },
+
+    { d:10, wd:"Fri", mo:"Jul", loc:"Banff → Kelowna", emoji:"🛣️", title:"Scenic drive home",
+      tags:["travel","chill"],
+      blurb:"Point it west and roll back to the Okanagan, stopping for the views you blew past on the way out.",
+      moves:[
+        {i:"📸",t:"Photo &amp; coffee stops at <b>Emerald Lake / the Spiral Tunnels</b> and lunch in <b>Golden or Revelstoke</b> to break the ~6hr drive."},
+        {i:"🏝️",t:"Back to the Kelowna base by evening — you've still got a week of lake life ahead."},
+        {i:"🛌",t:"Easy night in: order pizza, plan the back half, early one."},
+      ],
+      tip:"If anyone's flagging, swap drivers every couple of hours and bank a proper lunch break — it resets everyone.",
+      links:[{t:"Drive guide",u:"https://www.tourismkelowna.com/plan/how-to-get-here/car/"}] },
+  ]},
+
+  { id:"act3", num:"III", title:"Okanagan wind-down", meta:"Jul 11–17 · 7 nights",
+    days:[
+    { d:11, wd:"Sat", mo:"Jul", loc:"Penticton", emoji:"🛟", title:"Float the channel",
+      tags:["lake","party"],
+      blurb:"An easy hour south to Penticton for one of BC's great summer rituals — floating the lazy river between two lakes, beers in hand.",
+      moves:[
+        {i:"🛟",t:"<b>Coyote Cruises</b> — rent tubes (or a 12-man floating island) and drift the 7km channel from Okanagan Lake to Skaha Lake. 3–4 lazy hours."},
+        {i:"🏖️",t:"Land at <b>Skaha Lake beach</b>, regroup, maybe a second lap."},
+        {i:"🍺",t:"Hit Penticton's <b>Ale Trail</b> — a dense cluster of breweries — then taxi back or have a designated driver."},
+      ],
+      tip:"Bring a <b>waterproof pouch</b>, sunscreen and a floating cooler. The sun on the water is brutal — shirts/hats on.",
+      links:[{t:"Coyote Cruises",u:"https://www.coyotecruises.com/"},{t:"Visit Penticton float",u:"https://visitpenticton.com/experience/the-channel-float/"}] },
+
+    { d:12, wd:"Sun", mo:"Jul", loc:"Kelowna", emoji:"🏖️", title:"Pure chill day",
+      tags:["chill"],
+      blurb:"No alarms. Beaches, cafés and a slow one — the recovery day the trip needs.",
+      moves:[
+        {i:"🏖️",t:"Flop on the sand at <b>City Park / Gyro Beach</b>, swim, nap, repeat."},
+        {i:"☕",t:"Coffee &amp; brunch crawl through the downtown cafés; maybe a round of golf for anyone keen (Gallagher's Canyon, Predator Ridge)."},
+        {i:"🍴",t:"Proper sit-down dinner downtown — feed the bodies you've been abusing."},
+      ],
+      tip:"This is also the easiest day to do something with the parents if you fancy it — a relaxed lakeside lunch suits everyone.",
+      links:[] },
+
+    { d:13, wd:"Mon", mo:"Jul", loc:"Big White (45 min E)", emoji:"🚵", title:"Downhill at Big White Bike Park",
+      tags:["adventure","sport"],
+      blurb:"Lads' sports day. Ride the chairlift up, bomb back down — Kelowna's a world-class mountain-bike town and Big White's gravity park is 45 minutes up the road.",
+      moves:[
+        {i:"🎟️",t:"<b>Big White Bike Park</b> — lift-access downhill on <b>19 gravity trails</b>, from rolling greens to big-air blacks. Day tickets + a chairlift you ride all day."},
+        {i:"🚵",t:"Full <b>bike &amp; armour rental</b> on site, plus a <b>bike school</b> — so total beginners can session the green flow trails while the keen ones chase the blacks. Race each other down."},
+        {i:"🍺",t:"Après on the mountain or back in town: burgers and a well-earned pint to compare bruises."},
+      ],
+      tip:"Book rentals + any lesson ahead in peak summer. Not into bikes? Swap for <b>go-karting at Area 27's Kartplex</b> (~1hr S) or a <b>9-hole scramble</b> — keep it competitive either way. (Gutted timing note: the <b>Kelowna Falcons</b> baseball games bracket your trip — Jul 9 while you're in Banff, Jul 17 you fly home — so catch one only if your flights flex.)",
+      links:[{t:"Big White Bike Park",u:"https://www.bigwhite.com/summer/mountain-biking"},{t:"Kelowna Falcons",u:"https://www.kelownafalcons.com/game-schedule/"}] },
+
+    { d:14, wd:"Tue", mo:"Jul", loc:"Kelowna", emoji:"🪂", title:"Canyon swing & ziplines",
+      tags:["adventure"],
+      blurb:"One more adrenaline hit before the trip winds down.",
+      moves:[
+        {i:"🪂",t:"<b>Okanagan Adventure Park</b> — a 36m canyon swing, ziplines, treetop courses and freefall jumps."},
+        {i:"🏍️",t:"Or go off-road: a <b>Full Cycle Adventure ATV tour</b> — Polaris quads deep into the backcountry: steep climbs, ridgelines, hidden lakes."},
+        {i:"🌭",t:"Casual brewery-and-burger night to refuel — try Kettle Valley or Tree Brewing's lakeside Beer Institute."},
+      ],
+      tip:"Book the ATV tour in advance — small group sizes mean they sell out in peak summer.",
+      links:[{t:"Full Cycle ATV",u:"https://fullcycleadventures.ca/"},{t:"Tree Brewing",u:"https://treebeer.com/"}] },
+
+    { d:15, wd:"Wed", mo:"Jul", loc:"Kelowna", emoji:"🌄", title:"Sunset hike & last big night",
+      tags:["chill","party","anime"],
+      blurb:"A mellow afternoon into the biggest night — go back to the spots you loved and the ones you missed.",
+      moves:[
+        {i:"🥾",t:"Easy late-afternoon walk up <b>Knox Mountain</b> for the best sunset over the lake and city."},
+        {i:"🕹️",t:"Second lap of the <b>anime/arcade crawl</b> (Round1, BNA's arcade) for anyone who wants it before dinner."},
+        {i:"🍸",t:"<b>Last big night out</b> on Bernard Ave — hit your favourites and the bars you didn't get to. Make it count."},
+      ],
+      tip:"Knox Mountain has a road most of the way up if the group's legs are done — drive to the upper lookout and walk the last bit.",
+      links:[] },
+
+    { d:16, wd:"Thu", mo:"Jul", loc:"Okanagan Lake", emoji:"🌅", title:"Send-off on the water",
+      tags:["lake","party"],
+      blurb:"The grand finale: one more day on the lake, a sunset cruise and a final group dinner.",
+      moves:[
+        {i:"🚤",t:"Last <b>boat day</b> — swim, wakeboard, a final round of cliff jumps, sun-down beers anchored in a quiet bay."},
+        {i:"🌅",t:"Sunset cruise back to the marina."},
+        {i:"🍽️",t:"<b>Final group dinner</b> — steakhouse or a lakeside spot — to toast the trip. Bring the parents in for this one if you like."},
+      ],
+      tip:"Settle the group kitty tonight (Splitwise) so the morning's just packing and a fry-up.",
+      links:[{t:"Downtown Marina rentals",u:"https://www.kelownadowntownmarina.com/"}] },
+
+    { d:17, wd:"Fri", mo:"Jul", loc:"Kelowna → home", emoji:"✈️", title:"Wheels up",
+      tags:["travel"],
+      blurb:"Greasy breakfast, fuel the car, drop the rental, fly home a wreck with the best stories.",
+      moves:[
+        {i:"⛽",t:"Refuel the hire car near YLW (return it full) and check in."},
+        {i:"🥓",t:"One last diner breakfast — recap the trip, settle any last bits of the kitty."},
+        {i:"✈️",t:"Fly home. Start planning the next one before you land."},
+      ],
+      tip:"Leave buffer for airport faff. Confirm everyone's checked-in and the rental's returned with no scratches before you relax.",
+      links:[] },
+  ]},
+];
+
+/* ---------------- render ---------------- */
+function dayHTML(day){
+  const tags = day.tags.map(t=>`<span class="tag" style="background:${TAGS[t].c}">${TAGS[t].label}</span>`).join("");
+  const moves = day.moves.map(m=>`<div class="move"><div class="mi">${m.i}</div><div class="mt">${m.t}</div></div>`).join("");
+  const links = (day.links||[]).map(l=>`<a class="blink" href="${l.u}" target="_blank" rel="noopener">${l.t}</a>`).join("");
+  return `<article class="day" data-tags="${day.tags.join(' ')}">
+    <div class="day-top">
+      <div class="daynum"><div class="d">${day.d}</div><div class="wd">${day.wd}</div><div class="mo">${day.mo}</div></div>
+      <div class="day-headtext">
+        <div class="day-loc">📍 ${day.loc}</div>
+        <h4>${day.emoji} ${day.title}</h4>
+        <div class="blurb">${day.blurb}</div>
+        <div class="tags">${tags}</div>
+      </div>
+    </div>
+    <div class="moves">${moves}</div>
+    <div class="day-foot">
+      <div class="tip">💡 <b>Pro move:</b> ${day.tip}</div>
+      ${links?`<div class="blinks">${links}</div>`:""}
+    </div>
+  </article>`;
+}
+function actHTML(act){
+  return `<div class="act" id="${act.id}">
+    <div class="act-banner"><span class="num">${act.num}</span><h3>${act.title}</h3><span class="meta">${act.meta}</span></div>
+    ${act.days.map(dayHTML).join("")}
+  </div>`;
+}
+$("#acts").innerHTML = ACTS.map(actHTML).join("");
+
+/* ---------------- filter chips ---------------- */
+const active = new Set();  // empty = show all
+function applyFilter(){
+  document.querySelectorAll(".day").forEach(d=>{
+    const tags = d.dataset.tags.split(" ");
+    const show = active.size===0 || tags.some(t=>active.has(t));
+    d.classList.toggle("hide", !show);
+  });
+  // hide empty acts
+  document.querySelectorAll(".act").forEach(a=>{
+    const anyVisible = a.querySelector(".day:not(.hide)");
+    a.style.display = anyVisible ? "" : "none";
+  });
+}
+$("#filters").addEventListener("click", e=>{
+  const chip = e.target.closest(".chip"); if(!chip) return;
+  const tag = chip.dataset.tag;
+  if(tag==="all"){ active.clear(); }
+  else { active.has(tag) ? active.delete(tag) : active.add(tag); }
+  document.querySelectorAll(".chip").forEach(c=>{
+    if(c.dataset.tag==="all") c.classList.toggle("off", active.size!==0);
+    else c.classList.toggle("off", active.size!==0 && !active.has(c.dataset.tag));
+  });
+  applyFilter();
+});
+
+/* ---------------- book-ahead checklist (localStorage) ---------------- */
+const CHECKS = [
+  {id:"flights", t:"Flights to Kelowna (YLW)", s:"Often via Vancouver/Calgary from the UK. Book early for July.", urgent:true},
+  {id:"bclions", t:"BC Lions tickets — Sat Jul 4", s:"Apple Bowl, Kelowna, vs Edmonton Elks. FIXED DATE — get 4 seats together.", urgent:true},
+  {id:"kelowna-stay", t:"Kelowna base (11 nights, lake-side)", s:"4 lads? An Airbnb with a dock + space beats a hotel.", urgent:true},
+  {id:"banff-stay", t:"Banff / Canmore hotel (Jul 8–10)", s:"Canmore is cheaper & 20 min out. July books up fast.", urgent:true},
+  {id:"exotic", t:"Exotic-car tour / rental — Jul 6", s:"Kelowna Exotic Car Tours, West K Exotics or Dream Car. Reserve the cars.", urgent:false},
+  {id:"car", t:"Normal hire car from YLW", s:"For the Banff run + day trips. Add extra drivers to share the wheel.", urgent:false},
+  {id:"banff-pass", t:"Parks Canada pass + Banff Gondola", s:"Day pass per vehicle online; pre-book gondola/via ferrata for Jul 9.", urgent:false},
+  {id:"raft", t:"Revelstoke raft (optional, Jul 8)", s:"Apex Rafting half-day en route to Banff — book the late-morning slot.", urgent:false},
+  {id:"float", t:"Penticton channel float — Jul 11", s:"Coyote Cruises tube + floating-island rental.", urgent:false},
+  {id:"boat", t:"Party / pontoon boat (Jul 7 & 16)", s:"Two lake days — day rental or captained charter.", urgent:false},
+  {id:"jetski", t:"Sea-Doo / jet-ski rental — Jul 4", s:"Reserve a convoy for the group before the Lions game.", urgent:false},
+  {id:"bike", t:"Big White Bike Park — Jul 13", s:"Day tickets + bike/armour rentals (and a lesson for first-timers).", urgent:false},
+];
+const SKEY = "canada26.checks";
+let done = {};
+try{ done = JSON.parse(localStorage.getItem(SKEY)) || {}; }catch(e){ done = {}; }
+function renderChecks(){
+  $("#checklist").innerHTML = CHECKS.map(c=>`
+    <div class="check ${done[c.id]?'done':''}" data-id="${c.id}">
+      <div class="box">✓</div>
+      <div class="ct"><b>${c.t}</b><span>${c.s}</span>${c.urgent?'<div class="urgent">⚠ BOOK EARLY</div>':''}</div>
+    </div>`).join("");
+  const n = CHECKS.filter(c=>done[c.id]).length;
+  $("#progBar").style.width = Math.round(n/CHECKS.length*100)+"%";
+  $("#progLabel").textContent = `${n} of ${CHECKS.length} sorted` + (n===CHECKS.length ? " — you're ready to fly 🍁" : "");
+}
+$("#checklist").addEventListener("click", e=>{
+  const el = e.target.closest(".check"); if(!el) return;
+  const id = el.dataset.id; done[id] = !done[id];
+  try{ localStorage.setItem(SKEY, JSON.stringify(done)); }catch(e){}
+  renderChecks();
+});
+renderChecks();
+
+/* ---------------- nav scroll-spy ---------------- */
+const links = [...document.querySelectorAll(".navlink")];
+const ids = ["act1","act2","act3","book","tips"];
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      links.forEach(l=>l.classList.toggle("on", l.getAttribute("href")==="#"+en.target.id));
+    }
+  });
+},{rootMargin:"-45% 0px -50% 0px"});
+ids.forEach(id=>{ const el=document.getElementById(id); if(el) io.observe(el); });
+})();
+</script>
+</body>
+</html>
